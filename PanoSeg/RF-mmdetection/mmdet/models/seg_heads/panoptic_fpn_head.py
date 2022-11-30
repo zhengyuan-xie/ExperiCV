@@ -114,10 +114,9 @@ class PanopticFPNHead(BaseSemanticHead):
         """
         gt_semantic_seg = gt_semantic_seg.int()
         fg_mask = gt_semantic_seg < self.num_things_classes
-        #参 考 计 算 前 景 mask 的 方 式 计 算 背 景 mask 。
-        #背 景 像 素 需 要 满 足 该 像 素 对 应 的 类 别 标 号 大 于 等 于 num_things_classes−1
-        #且 小 于 num_things_classes+num_stuff_classes 。
-        #实 现 时 注 意 利 用 PyTorch 的 广 播 机 制 。
+        #参考计算前景mask的方式计算背景mask。
+        #背景像素需要满足该像素对应的类别标号大于等于num_things_classes−1
+        #且小于num_things_classes+num_stuff_classes 。
         bg_mask = ???
         new_gt_seg = torch.clone(gt_semantic_seg)
         new_gt_seg = torch.where(bg_mask,
@@ -148,12 +147,12 @@ class PanopticFPNHead(BaseSemanticHead):
 
         feats = []
         for i, layer in enumerate(self.conv_upsample_layers):
-            #使 用 卷 积 上 采 样 层 l a y e r 处 理 s t a r t _ l e v e l 开 始 的 第 i 个 特 征
+            #使用卷积上采样层layer处理start_level开始的第i个特征
             f = ???
             feats.append(f)
 
         feats = torch.sum(torch.stack(feats, dim=0), dim=0)
-        #使 用 定 义 好 的 1x1 卷 积 处 理 特 征
+        #使用定义好的1x1卷积处理特征
         seg_preds = ???
         out = dict(seg_preds=seg_preds, feats=feats)
         return out

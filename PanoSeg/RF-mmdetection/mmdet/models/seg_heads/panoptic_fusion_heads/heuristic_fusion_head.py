@@ -63,11 +63,11 @@ class HeuristicFusionHead(BasePanopticFusionHead):
                 continue
 
             pasted = id_map > 0
-            #计 算 当 前 区 域 (_mask) 与 已 有 i d 区 域 ( pasted ) 的 交 集 ， 并 对 交 集 像 素 数 量 求 和
+            #计算当前区域(_mask)与已有id区域(pasted)的交集，并对交集像素数量求和
             intersect = ???
             if (intersect / (area + 1e-5)) > overlap_thr:
                 continue
-            #通 过_mask和 pasted 计 算 属 于 当 前 实 例 的 区 域
+            #通过_mask和pasted计算属于当前实例的区域
             _part = ???
             id_map = torch.where(_part, instance_id_map, id_map)
             left_labels.append(_cls)
